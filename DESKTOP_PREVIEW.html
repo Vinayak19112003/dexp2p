@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P Exchange - Desktop Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F9FAFB;
+            color: #111827;
+            line-height: 1.5;
+        }
+
+        .preview-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .preview-section {
+            margin-bottom: 60px;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1E3A8A;
+        }
+
+        .section-description {
+            color: #6B7280;
+            margin-bottom: 24px;
+        }
+
+        .mockup-frame {
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1E3A8A, #3B82F6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #1E3A8A;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .network-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #DCFCE7;
+            border: 1px solid #BBF7D0;
+            border-radius: 8px;
+            color: #15803D;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .network-dot {
+            width: 8px;
+            height: 8px;
+            background: #22C55E;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .wallet-button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: #1E3A8A;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .wallet-button:hover {
+            background: #0A2463;
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 40px;
+            text-align: center;
+            background: linear-gradient(180deg, #F9FAFB 0%, white 100%);
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero-highlight {
+            color: #1E3A8A;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #6B7280;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .btn-primary {
+            padding: 16px 32px;
+            background: #1E3A8A;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #0A2463;
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            padding: 16px 32px;
+            background: transparent;
+            color: #1E3A8A;
+            border: 2px solid #1E3A8A;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #DBEAFE;
+        }
+
+        .wallet-support {
+            color: #9CA3AF;
+            font-size: 14px;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            padding: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-description {
+            color: #6B7280;
+            font-size: 15px;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            padding: 40px;
+            background: #F9FAFB;
+        }
+
+        .dashboard-header {
+            margin-bottom: 32px;
+        }
+
+        .dashboard-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-subtitle {
+            color: #6B7280;
+            font-size: 16px;
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, #1E3A8A, #3B82F6);
+            border-radius: 12px;
+            padding: 32px;
+            color: white;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .balance-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .balance-amount {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .balance-currency {
+            font-size: 24px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .balance-fiat {
+            color: #DBEAFE;
+            font-size: 18px;
+            margin-bottom: 24px;
+        }
+
+        .balance-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-label {
+            color: #6B7280;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .stat-value.success {
+            color: #15803D;
+        }
+
+        /* Trade Cards */
+        .trade-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .trade-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .trade-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-badge.warning {
+            background: #FEF3C7;
+            color: #B45309;
+            border: 1px solid #FDE68A;
+        }
+
+        .status-badge.primary {
+            background: #DBEAFE;
+            color: #1E3A8A;
+            border: 1px solid #BFDBFE;
+        }
+
+        .status-badge.success {
+            background: #DCFCE7;
+            color: #15803D;
+            border: 1px solid #BBF7D0;
+        }
+
+        /* Offer Card */
+        .offer-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .offer-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .offer-seller {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+            border: 2px solid white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .seller-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .reputation {
+            color: #6B7280;
+            font-size: 14px;
+        }
+
+        .offer-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .offer-field {
+            border-right: 1px solid #E5E7EB;
+            padding-right: 20px;
+        }
+
+        .offer-field:last-child {
+            border-right: none;
+        }
+
+        .offer-label {
+            color: #9CA3AF;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .offer-value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .offer-subvalue {
+            color: #6B7280;
+            font-size: 12px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .payment-chip {
+            padding: 6px 16px;
+            background: #DBEAFE;
+            color: #1E3A8A;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .offer-action {
+            width: 100%;
+            padding: 14px;
+            background: #1E3A8A;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .offer-action:hover {
+            background: #0A2463;
+        }
+
+        .page-section {
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <h1 style="font-size: 48px; font-weight: 700; text-align: center; margin-bottom: 16px; background: linear-gradient(135deg, #1E3A8A, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            P2P Exchange Desktop Preview
+        </h1>
+        <p style="text-align: center; color: #6B7280; font-size: 18px; margin-bottom: 60px;">
+            This is how your decentralized P2P crypto exchange will look on desktop/PC
+        </p>
+
+        <!-- Landing Page Preview -->
+        <div class="preview-section">
+            <div class="section-title">🏠 Landing Page</div>
+            <p class="section-description">First page users see when visiting the website</p>
+
+            <div class="mockup-frame">
+                <!-- Header -->
+                <div class="header">
+                    <div class="logo">
+                        <div class="logo-icon">P</div>
+                        <div class="logo-text">P2P Exchange</div>
+                    </div>
+                    <div class="header-right">
+                        <button class="wallet-button">🦊 Connect Wallet</button>
+                    </div>
+                </div>
+
+                <!-- Hero Section -->
+                <div class="hero">
+                    <h1 class="hero-title">
+                        Decentralized INR/USDT<br>
+                        <span class="hero-highlight">P2P Trading</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Trade crypto directly with peers. Secure, trustless, and decentralized on Binance Smart Chain.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary">🦊 Connect Wallet</button>
+                        <button class="btn-secondary">Browse Offers</button>
+                    </div>
+                    <p class="wallet-support">Supported: MetaMask • Trust Wallet</p>
+                </div>
+
+                <!-- Features -->
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-title">Secure Escrow</div>
+                        <p class="feature-description">
+                            Smart contract escrow protects both buyers and sellers throughout the trade.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Fast Settlement</div>
+                        <p class="feature-description">
+                            Direct P2P transfers with quick payment confirmations and instant USDT release.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <div class="feature-title">Low Fees</div>
+                        <p class="feature-description">
+                            No middlemen. Only minimal gas fees on Binance Smart Chain network.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Preview -->
+        <div class="preview-section">
+            <div class="section-title">📊 Dashboard (After Wallet Connected)</div>
+            <p class="section-description">User's personal dashboard showing balance, stats, and active trades</p>
+
+            <div class="mockup-frame">
+                <!-- Header -->
+                <div class="header">
+                    <div class="logo">
+                        <div class="logo-icon">P</div>
+                        <div class="logo-text">P2P Exchange</div>
+                    </div>
+                    <nav class="nav">
+                        <a href="#" class="nav-link">Dashboard</a>
+                        <a href="#" class="nav-link">Browse</a>
+                        <a href="#" class="nav-link">My Orders</a>
+                        <a href="#" class="nav-link">Create Offer</a>
+                    </nav>
+                    <div class="header-right">
+                        <div class="network-badge">
+                            <div class="network-dot"></div>
+                            <span>BSC Mainnet</span>
+                        </div>
+                        <button class="wallet-button">
+                            <div class="avatar" style="width: 24px; height: 24px; font-size: 10px;">AB</div>
+                            <span>0x1234...5678</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dashboard Content -->
+                <div class="dashboard">
+                    <div class="dashboard-header">
+                        <h1 class="dashboard-title">Dashboard</h1>
+                        <p class="dashboard-subtitle">Hello, 0x1234...5678! 👋</p>
+                    </div>
+
+                    <!-- Balance Card -->
+                    <div class="balance-card">
+                        <div class="balance-label">💰 Wallet Balance</div>
+                        <div>
+                            <span class="balance-amount">5,243.50</span>
+                            <span class="balance-currency">USDT</span>
+                        </div>
+                        <div class="balance-fiat">≈ ₹4,37,790</div>
+                        <div class="balance-actions">
+                            <button class="btn-secondary" style="color: white; border-color: white;">Deposit</button>
+                            <button class="btn-secondary" style="color: white; border-color: white; background: rgba(255,255,255,0.1);">Withdraw</button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Total Trades</div>
+                            <div class="stat-value">47</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Success Rate</div>
+                            <div class="stat-value success">98.5%</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Total Volume</div>
+                            <div class="stat-value">₹12,45,670</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Reputation</div>
+                            <div class="stat-value">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+
+                    <!-- Active Trades -->
+                    <div class="page-section">
+                        <h2 style="font-size: 24px; font-weight: 600; margin-bottom: 16px;">Active Trades (2)</h2>
+
+                        <div class="trade-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <div style="display: flex; gap: 12px; align-items: center;">
+                                    <span class="status-badge primary">↗️ Payment Sent</span>
+                                    <span style="font-weight: 600; font-size: 18px;">#T12345</span>
+                                    <span style="color: #B45309; font-size: 14px;">⏱️ 23:15 left</span>
+                                </div>
+                                <button class="wallet-button" style="padding: 8px 16px; font-size: 14px;">View Trade →</button>
+                            </div>
+                            <p style="color: #374151;">Buying 1,000 USDT</p>
+                        </div>
+
+                        <div class="trade-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <div style="display: flex; gap: 12px; align-items: center;">
+                                    <span class="status-badge warning">⏱️ Awaiting Payment</span>
+                                    <span style="font-weight: 600; font-size: 18px;">#T12346</span>
+                                    <span style="color: #B45309; font-size: 14px;">⏱️ 45:10 left</span>
+                                </div>
+                                <button class="wallet-button" style="padding: 8px 16px; font-size: 14px;">View Trade →</button>
+                            </div>
+                            <p style="color: #374151;">Selling 500 USDT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browse Offers Preview -->
+        <div class="preview-section">
+            <div class="section-title">🔍 Browse Offers Page</div>
+            <p class="section-description">Browse and filter available buy/sell offers from other traders</p>
+
+            <div class="mockup-frame">
+                <div class="header">
+                    <div class="logo">
+                        <div class="logo-icon">P</div>
+                        <div class="logo-text">P2P Exchange</div>
+                    </div>
+                    <nav class="nav">
+                        <a href="#" class="nav-link">Dashboard</a>
+                        <a href="#" class="nav-link" style="color: #1E3A8A; border-bottom: 3px solid #1E3A8A; padding-bottom: 4px;">Browse</a>
+                        <a href="#" class="nav-link">My Orders</a>
+                        <a href="#" class="nav-link">Create Offer</a>
+                    </nav>
+                    <div class="header-right">
+                        <div class="network-badge">
+                            <div class="network-dot"></div>
+                            <span>BSC Mainnet</span>
+                        </div>
+                        <button class="wallet-button">
+                            <div class="avatar" style="width: 24px; height: 24px; font-size: 10px;">AB</div>
+                            <span>0x1234...5678</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dashboard">
+                    <div class="dashboard-header">
+                        <h1 class="dashboard-title">Browse Offers</h1>
+                        <p class="dashboard-subtitle">Find the best offers to trade USDT for INR</p>
+                    </div>
+
+                    <!-- Offer Cards -->
+                    <div class="offer-card">
+                        <div class="offer-seller">
+                            <div class="avatar">AK</div>
+                            <div class="seller-info">
+                                <h3>Trader_AK</h3>
+                                <div class="reputation">⭐⭐⭐⭐⭐ 4.9/5.0 (47 trades) • Last active: 5 min ago</div>
+                            </div>
+                        </div>
+
+                        <div class="offer-details">
+                            <div class="offer-field">
+                                <div class="offer-label">Price</div>
+                                <div class="offer-value">₹83.50</div>
+                                <div class="offer-subvalue">per USDT</div>
+                            </div>
+                            <div class="offer-field">
+                                <div class="offer-label">Available</div>
+                                <div class="offer-value">1,200 USDT</div>
+                                <div class="offer-subvalue">₹1,00,200</div>
+                            </div>
+                            <div class="offer-field">
+                                <div class="offer-label">Limits</div>
+                                <div class="offer-value" style="font-size: 14px;">₹1,000 - ₹50,000</div>
+                            </div>
+                            <div class="offer-field">
+                                <div class="offer-label">Time Limit</div>
+                                <div class="offer-value">30 minutes</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <div class="offer-label" style="margin-bottom: 8px;">Payment Methods</div>
+                            <div class="payment-methods">
+                                <span class="payment-chip">UPI</span>
+                                <span class="payment-chip">IMPS</span>
+                                <span class="payment-chip">Bank Transfer</span>
+                            </div>
+                        </div>
+
+                        <button class="offer-action">Buy USDT →</button>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-seller">
+                            <div class="avatar" style="background: linear-gradient(135deg, #22C55E, #10B981);">RJ</div>
+                            <div class="seller-info">
+                                <h3>Crypto_RJ</h3>
+                                <div class="reputation">⭐⭐⭐⭐ 4.7/5.0 (23 trades) • Last active: 1 hour ago</div>
+                            </div>
+                        </div>
+
+                        <div class="offer-details">
+                            <div class="offer-field">
+                                <div class="offer-label">Price</div>
+                                <div class="offer-value">₹83.45</div>
+                                <div class="offer-subvalue">per USDT</div>
+                            </div>
+                            <div class="offer-field">
+                                <div class="offer-label">Available</div>
+                                <div class="offer-value">800 USDT</div>
+                                <div class="offer-subvalue">₹66,760</div>
+                            </div>
+                            <div class="offer-field">
+                                <div class="offer-label">Limits</div>
+                                <div class="offer-value" style="font-size: 14px;">₹5,000 - ₹30,000</div>
+                            </div>
+                            <div class="offer-field">
+                                <div class="offer-label">Time Limit</div>
+                                <div class="offer-value">45 minutes</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <div class="offer-label" style="margin-bottom: 8px;">Payment Methods</div>
+                            <div class="payment-methods">
+                                <span class="payment-chip">UPI</span>
+                            </div>
+                        </div>
+
+                        <button class="offer-action">Buy USDT →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 40px; color: #6B7280;">
+            <p style="font-size: 18px; margin-bottom: 16px;">
+                ✨ This is a pixel-perfect preview of your P2P Exchange website on desktop!
+            </p>
+            <p style="font-size: 14px;">
+                The actual application will have all interactive features, animations, and responsive design.
+            </p>
+            <p style="margin-top: 24px; font-weight: 600; color: #1E3A8A;">
+                Run <code style="background: #F3F4F6; padding: 4px 8px; border-radius: 4px;">npm run dev</code> to see it live! 🚀
+            </p>
+        </div>
+    </div>
+</body>
+</html>
