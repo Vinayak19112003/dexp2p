@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Design system CSS variables */
+    --primary-blue-900: #0A2463;
+    --primary-blue-700: #1E3A8A;
+    --primary-blue-500: #3B82F6;
+  }
+
+  * {
+    @apply border-neutral-300;
+  }
+
+  body {
+    @apply font-sans text-base text-neutral-900 bg-neutral-50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    @apply text-4xl font-bold leading-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold leading-tight;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold leading-tight;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+  }
+
+  *:focus:not(:focus-visible) {
+    @apply outline-none;
+  }
+}
+
+@layer utilities {
+  .truncate-address {
+    @apply font-mono text-sm;
+  }
+}
+
+/* Animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
